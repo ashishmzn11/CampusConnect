@@ -1,0 +1,17 @@
+.dashboard {
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.content {
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  overflow-y: auto;
+}

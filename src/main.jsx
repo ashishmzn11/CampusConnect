@@ -11,7 +11,7 @@ import { StudentProvider } from "./Store/User/StoreStudent.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
   <StudentProvider>
-    <App />
+    <App/>
   </StudentProvider>
     
   </BrowserRouter>

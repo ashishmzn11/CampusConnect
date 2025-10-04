@@ -4,7 +4,7 @@ import { StudentContext, StudentProvider } from "../../Store/User/StoreStudent";
 
 function StudentSignUp(){
   const navigate=useNavigate();
-  const {HandleStudentSignUp}=useContext(StudentContext);
+  const {HandleStudentSignUp,error}=useContext(StudentContext);
 
   const [name,setname]=useState("");
   const [email,setemail]=useState("");
@@ -12,27 +12,37 @@ function StudentSignUp(){
   const [course,setcourse]=useState("");
 
   const handleStudentSignUp=(e)=>{
-    HandleStudentSignUp({name,email,pass,course})
-    e.preventDefault();
-    setname("");
+      e.preventDefault();
+    const success=HandleStudentSignUp({name,email,pass,course})
+  if (success){
+     setname("");
     setemail("");
     setpass("");
     setcourse("");
+    navigate("/")
+  }
+   
   }
   return (
     <div className="d-flex justify-content-center align-items-center vh-100" style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)" }}>
       <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "400px", borderRadius: "15px" }}>
         <h2 className="text-center mb-4" style={{ color: "#2575fc" }}>Student Signup</h2>
         <form onSubmit={handleStudentSignUp}>
+          {error && (
+            <div className="alert alert-danger" role="alert">
+              {error}
+            </div>
+          )}
           <div className="mb-3">
             <label className="form-label">Full Name</label>
             <input type="text" className="form-control" name="name" value={name} onChange={(e)=>setname(e.target.value)} placeholder="Enter your full name" required />
           </div>
-
-          <div className="mb-3">
+          {error?{}:<div className="mb-3">
             <label className="form-label">Email address</label>
             <input type="email" className="form-control" name="email" value={email} onChange={(e)=>setemail(e.target.value)} placeholder="Enter your email" required />
-          </div>
+          </div>}
+
+          
 
           <div className="mb-3">
             <label className="form-label">Password</label>
