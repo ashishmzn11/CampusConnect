@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { StudentContext } from "../../../Store/User/StoreStudent";
-import Dropdown from 'react-bootstrap/Dropdown';
-import Nav from 'react-bootstrap/Nav';
+import Dropdown from "react-bootstrap/Dropdown";
+import Nav from "react-bootstrap/Nav";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../../Css/StudentDashboard.css";
-  // for custom styles
+// for custom styles
 
 const StudentDashboard = () => {
-  const {currentstudent,HandleStudentLogout}=useContext(StudentContext)
-  const navigate=useNavigate();
-   useEffect(() => {
+  const { currentstudent, HandleStudentLogout } = useContext(StudentContext);
+  const navigate = useNavigate();
+  useEffect(() => {
     if (!currentstudent) {
       navigate("/StudentDashboard");
     }
@@ -23,19 +23,33 @@ const StudentDashboard = () => {
         <h4 className="text-center mb-4">Apna college</h4>
         <ul className="nav flex-column">
           <li className="nav-item">
-            <a href="#" className="nav-link text-white">Home</a>
+            <a href="#" className="nav-link text-white">
+              Home
+            </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link text-white">View Attendance</a>
+            <a href="#" className="nav-link text-white">
+              View Attendance
+            </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link text-white">View Result</a>
+            <a href="#" className="nav-link text-white" onClick={() => navigate("/StudentResult")}>
+              View Result
+            </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link text-white">Apply for Leave</a>
+            <a href="#" className="nav-link text-white">
+              Apply for Leave
+            </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link text-white" onClick={()=>navigate("/StudentFeedback")}>Send Feedback</a>
+            <a
+              href="#"
+              className="nav-link text-white"
+              onClick={() => navigate("/StudentFeedback")}
+            >
+              Send Feedback
+            </a>
           </li>
         </ul>
       </div>
@@ -43,40 +57,34 @@ const StudentDashboard = () => {
       {/* Main Content */}
       <div className="content flex-grow-1">
         <header className="header bg-light p-3 border-bottom d-flex justify-content-between align-items-center">
+          <h5>Student Management System | Student Dashboard</h5>
+          <div>
+            {currentstudent ? (
+              <Dropdown align="end" className="ms-3">
+                <Dropdown.Toggle variant="outline-primary" id="dropdown-user">
+                  {currentstudent.name.split("@")[0]} {/* username */}
+                </Dropdown.Toggle>
 
-  <h5>Student Management System | Student Dashboard</h5>
-    <div>
-    {currentstudent ? (
-      <Dropdown align="end" className="ms-3">
-        <Dropdown.Toggle variant="outline-primary" id="dropdown-user">
-          {currentstudent.name.split("@")[0]} {/* username */}
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item>
-            View Profile
-          </Dropdown.Item>
-          <Dropdown.Item >
-            View Order
-          </Dropdown.Item>
-          <Dropdown.Item onClick={HandleStudentLogout} >
-            Sign Out
-          </Dropdown.Item >
-        </Dropdown.Menu>
-      </Dropdown>
-    ) : (
-      <Nav.Link
-        onClick={()=>navigate("/")}
-        className="ms-3 btn btn-outline-success"
-      >
-        Sign In
-      </Nav.Link>
-    )}
-  </div>
-</header>
-
-
+                <Dropdown.Menu>
+                  <Dropdown.Item>View Profile</Dropdown.Item>
+                  <Dropdown.Item>View Order</Dropdown.Item>
+                  <Dropdown.Item onClick={HandleStudentLogout}>
+                    Sign Out
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            ) : (
+              <Nav.Link
+                onClick={() => navigate("/SignIn")}
+                className="ms-3 btn btn-outline-success"
+              >
+                Sign In
+              </Nav.Link>
+            )}
+          </div>
+        </header>
         <Container fluid className="p-3">
+          <Outlet />
           <h4>Student Home</h4>
 
           <Row className="mb-3">
@@ -84,7 +92,9 @@ const StudentDashboard = () => {
               <Card className="text-white bg-info mb-3">
                 <Card.Body>
                   <Card.Title>Total Attendance</Card.Title>
-                  <a href="#" className="text-white">More info →</a>
+                  <a href="#" className="text-white">
+                    More info →
+                  </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -92,7 +102,9 @@ const StudentDashboard = () => {
               <Card className="text-white bg-success mb-3">
                 <Card.Body>
                   <Card.Title>Absent</Card.Title>
-                  <a href="#" className="text-white">More info →</a>
+                  <a href="#" className="text-white">
+                    More info →
+                  </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -100,7 +112,9 @@ const StudentDashboard = () => {
               <Card className="text-white bg-warning mb-3">
                 <Card.Body>
                   <Card.Title>Present</Card.Title>
-                  <a href="#" className="text-white">More info →</a>
+                  <a href="#" className="text-white">
+                    More info →
+                  </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -108,7 +122,9 @@ const StudentDashboard = () => {
               <Card className="text-white bg-danger mb-3">
                 <Card.Body>
                   <Card.Title>Total Subjects</Card.Title>
-                  <a href="#" className="text-white">More info →</a>
+                  <a href="#" className="text-white">
+                    More info →
+                  </a>
                 </Card.Body>
               </Card>
             </Col>

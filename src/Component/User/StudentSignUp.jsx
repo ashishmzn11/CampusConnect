@@ -19,7 +19,7 @@ function StudentSignUp(){
     setemail("");
     setpass("");
     setcourse("");
-    navigate("/")
+    navigate("/SignIn")
   }
    
   }
@@ -62,7 +62,7 @@ function StudentSignUp(){
           <button type="submit" className="btn btn-primary w-100 py-2" style={{ borderRadius: "50px" }}>Sign Up</button>
 
           <p className="text-center mt-3">
-            Already have an account? <a href="#" style={{ color: "#2575fc", fontWeight: "500" }}onClick={()=>navigate("/")}>Login</a>
+            Already have an account? <a href="#" style={{ color: "#2575fc", fontWeight: "500" }}onClick={()=>navigate("/SignIn")}>Login</a>
           </p>
         </form>
       </div>
