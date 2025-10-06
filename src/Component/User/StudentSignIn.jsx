@@ -5,10 +5,11 @@ import { StudentContext} from "../../Store/User/StoreStudent";
 
 function StudentSignIn(){
   const navigate=useNavigate();
-  const {HandleStudentSignIn,error}=useContext(StudentContext);
+  const {HandleStudentSignIn}=useContext(StudentContext);
   const [name,setname]=useState("");
   const [email,setemail]=useState("");
   const [pass,setpass]=useState("");
+  const [error,seterror]=useState("")
   const handleStudentSignIn=(e)=>{
      e.preventDefault();
      const success=HandleStudentSignIn({email,name,pass})
@@ -17,6 +18,9 @@ function StudentSignIn(){
       setemail("");
       setpass("");
       navigate("/StudentDashboard")
+     }
+     else{
+      seterror("invalid user!")
      }
   }
   
@@ -50,7 +54,7 @@ function StudentSignIn(){
           <button type="submit" className="btn btn-primary w-100 py-2" style={{ borderRadius: "50px" }}>Sign In</button>
 
           <p className="text-center mt-3">
-            Already have't an account? <a href="#" style={{ color: "#2575fc", fontWeight: "500" }} onClick={()=>navigate("/SignUp")}>SignUp</a>
+            Already have't an account? <a href="#" style={{ color: "#2575fc", fontWeight: "500" }} onClick={()=>navigate("/StudentSignUp")}>SignUp</a>
           </p>
         </form>
       </div>

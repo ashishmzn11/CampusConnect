@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Dropdown } from "react-bootstrap";
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recharts";
 import { StudentContext } from "../../../Store/User/StoreStudent";
+import { useNavigate } from "react-router-dom"; // for navigation
 
 const studentStaffData = [
   { name: "Students", value: 15 },
@@ -20,12 +21,42 @@ const subjectsData = [
 const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
 
 function AdminDashboard() {
-  const {totalStudentsCount,totalTeacherCount}=useContext(StudentContext)
+  const { totalStudentsCount, totalTeacherCount } = useContext(StudentContext);
+  const navigate = useNavigate();
+
+  // Functions for back and logout
+  const handleBack = () => {
+    navigate(-1); // go back one page
+  };
+
+  const handleLogout = () => {
+    // example logout (clear any auth)
+    localStorage.removeItem("currentAdmin");
+    navigate("/"); // redirect to homepage or login
+  };
+
   return (
     <Container fluid className="p-3 bg-light" style={{ minHeight: "100vh" }}>
       {/* Header */}
       <Row className="mb-3 align-items-center">
-        <Col><h3>Student Management System | Admin Dashboard</h3></Col>
+        <Col md={2}>
+          {/* Dropdown menu */}
+          <Dropdown>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              Menu
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleBack}>⬅ Back</Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>🚪 Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col md={10}>
+          <h3 className="mb-0 text-center">
+            Student Management System | Admin Dashboard
+          </h3>
+        </Col>
       </Row>
 
       {/* Stats Cards */}
@@ -35,7 +66,7 @@ function AdminDashboard() {
             <Card.Body>
               <Card.Title>Total Students</Card.Title>
               <Card.Text>{totalStudentsCount}</Card.Text>
-              <Button variant="light" size="sm">More Info</Button>
+              <Button variant="light" size="sm"onClick={()=>navigate("/TotalStudent")}>More Info</Button>
             </Card.Body>
           </Card>
         </Col>
@@ -44,7 +75,7 @@ function AdminDashboard() {
             <Card.Body>
               <Card.Title>Total Staffs</Card.Title>
               <Card.Text>{totalTeacherCount}</Card.Text>
-              <Button variant="light" size="sm">More Info</Button>
+              <Button variant="light" size="sm"onClick={()=>navigate("/TotalTeacher")}>More Info</Button>
             </Card.Body>
           </Card>
         </Col>

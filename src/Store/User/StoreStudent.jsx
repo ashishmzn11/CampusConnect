@@ -38,7 +38,7 @@ useEffect(() => {
 
    }
   
- const HandleStudentSignUp = ({ name, email, pass, course }) => {
+ const HandleStudentSignUp = ({ name, email, pass, course, year, batch}) => {
     // check if this email already exists
     const alreadyExistStudent = totalstudent.some(
       (student) => student.email === email
@@ -51,9 +51,17 @@ useEffect(() => {
     }
 
     // if not exists, add the student
-    const newStudent = { name, email, pass, course };
-    settotalstudent([...totalstudent, newStudent]);
-    seterror(null); // clear any old error
+    // const newStudent = { name, email, pass, course,year,batch };
+    // settotalstudent([...totalstudent, newStudent]);
+    // seterror(null); // clear any old error
+    // return true;
+
+
+    const newStudent = { name, email, pass, course, year, batch };
+    const updatedStudents = [...totalstudent, newStudent];
+    settotalstudent(updatedStudents); // updates state
+    localStorage.setItem("students", JSON.stringify(updatedStudents)); // updates storage
+    seterror(null);
     return true;
   };
   const HandleStudentLogout = () => {
@@ -61,6 +69,19 @@ useEffect(() => {
     localStorage.removeItem("currentStudent");
   };
   const totalStudentsCount = totalstudent.length;
+  
+// remove
+  const handleRemoveStudent = (email) => {
+  const filteredStudents = totalstudent.filter(student => student.email !== email);
+  settotalstudent(filteredStudents);
+  localStorage.setItem("students", JSON.stringify(filteredStudents)); // update localStorage
+};
+// edit
+const handleEditStudent = (index, updatedStudent) => {
+    const updatedList = [...totalstudent];
+    updatedList[index] = updatedStudent;
+    settotalstudent(updatedList);
+  };
 
 // *****************student end**********************
 // **************************************************
@@ -102,9 +123,9 @@ useEffect(() => {
 
    }
   
- const HandleTeacherSignUp = ({ name, email, pass, course }) => {
+ const HandleTeacherSignUp = ({ email, name, pass,department,designation ,qualification}) => {
     // check if this email already exists
-    const alreadyExistStudent = totalteacher.some(
+    const alreadyExistteacher = totalteacher.some(
       (teacher) => teacher.email === email
     );
 
@@ -115,8 +136,10 @@ useEffect(() => {
     }
 
     // if not exists, add the student
-    const newteacher = { name, email, pass, course };
-    settotalteacher([...totalteacher, newteacher]);
+    const newteacher = { email, name, pass,department,designation ,qualification};
+    const updatedteacher= [...totalstudent, newteacher];
+    settotalteacher( updatedteacher);
+    localStorage.setItem("teacher", JSON.stringify(updatedteacher));
     seterror(null); // clear any old error
     return true;
   };
@@ -125,6 +148,19 @@ useEffect(() => {
     localStorage.removeItem("currentteacher");
   };
   const totalTeacherCount = totalteacher.length;
+
+  // remove
+  const handleRemoveteacher = (email) => {
+  const filteredStudents = totalstudent.filter(student => student.email !== email);
+  settotalstudent(filteredStudents);
+  localStorage.setItem("students", JSON.stringify(filteredStudents)); // update localStorage
+};
+// edit
+const handleEditteacher = (index, updatedStudent) => {
+    const updatedList = [...totalstudent];
+    updatedList[index] = updatedStudent;
+    settotalstudent(updatedList);
+  };
 
 // ***********************teacher end*********************
 // *******************************************************
@@ -154,6 +190,7 @@ useEffect(() => {
 //   useEffect(() => {
 //     localStorage.setItem("adminList", JSON.stringify(adminList));
 //   }, [adminList]);
+///////////total student remove
 
 const HandleAdminSignIn = (email, password) => {
     if (email === "Admin@gmail.com" && password === "003") {
@@ -164,7 +201,7 @@ const HandleAdminSignIn = (email, password) => {
     }
   };
   return (
-    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount}}>
+    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher}}>
       {children}
     </StudentContext.Provider>
   );

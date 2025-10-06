@@ -22,8 +22,8 @@ function TeacherSignIn() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "400px" }}>
+    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: "linear-gradient(135deg, rgba(106,17,203,0.9), rgba(37,117,252,0.9))" }}>
+      <div  className="bg-white rounded-4 shadow-lg p-4 p-md-5" style={{ width: "100%", maxWidth: "600px" }}>
         <h2 className="text-center text-success mb-4">Teacher Sign In</h2>
 
         <form onSubmit={handleTeacherSignIn}>
