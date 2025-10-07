@@ -11,6 +11,8 @@ import AdminDashboard from "./Component/Factory/AdminFactory/AdminDashboard";
 import HomePage from "./Component/Home/HomePage";
 import TotalStudent from "./Component/Factory/StudantFactory/TotalStudent";
 import TotalTeacher from "./Component/Factory/TeacherFactory/TotalTeacher";
+import TotalSubject from "./Component/Factory/Subject/TotalSubject";
+import TotalCourse from "./Component/Factory/Course/TotalCourse";
 // import StudentDashboard from "./Component/Factory/StudentFactory/StudentDashboard.jsx"; // exact path
 
 function App() {
@@ -26,8 +28,10 @@ function App() {
       <Route path="/TeacherSignIn" element={<TeacherSignIn/>}/>
       <Route path="/TeacherSignUp" element={<TeacherSignUp/>}/>
       <Route path="/AdminDashboard" element={<AdminDashboard/>}/>
-      <Route path="TotalStudent" element={<TotalStudent/>}/>
-       <Route path="TotalTeacher" element={<TotalTeacher/>}/>
+      <Route path="/TotalStudent" element={<TotalStudent/>}/>
+       <Route path="/TotalTeacher" element={<TotalTeacher/>}/>
+       <Route path="/TotalSubject" element={<TotalSubject/>}/>
+       <Route path="/TotalCourse" element={<TotalCourse/>}/>
       
     </Routes>
   );

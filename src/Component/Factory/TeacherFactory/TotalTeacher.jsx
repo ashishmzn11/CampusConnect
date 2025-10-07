@@ -4,7 +4,7 @@ import { StudentContext } from "../../../Store/User/StoreStudent";
 // import { teacherContext } from "../../../Store/User/Storeteacher";
 
 function TotalTeacher() {
-  const { totalteacher, handleRemoveteacher,HandleteacherSignUp, handleEditteacher, } = useContext(StudentContext);
+  const { totalteacher, handleRemoveteacher,HandleTeacherSignUp, handleEditteacher, } = useContext(StudentContext);
 
   // Form state
   const [name, setname] = useState("");
@@ -20,16 +20,15 @@ function TotalTeacher() {
   // Open modal for Add or Edit
   const openModal = (index = null) => {
     if (index !== null) {
-      // Edit mode
-      const teacher = totalteacher[index];
-      setname(teacher.name);
-      setemail(teacher.email);
-      setpass(teacher.pass);
-      setcourse(teacher.department);
-      setyear(teacher.designation);
-      setbatch(teacher.qualification);
-      setEditIndex(index);
-    } else {
+    const teacher = totalteacher[index];
+    setname(teacher.name);
+    setemail(teacher.email);
+    setpass(teacher.pass);
+    setdepartment(teacher.department);
+    setdesignation(teacher.designation);
+    setqualification(teacher.qualification); // ✅ add this
+    setEditIndex(index); // ✅ add this
+  } else {
       // Add mode
       setname(""); setemail(""); setpass(""); setdepartment(""); setdesignation(""); setqualification("");
       setEditIndex(null);
@@ -43,7 +42,10 @@ function TotalTeacher() {
       alert("Please fill all fields!");
       return;
     }
-
+ if (!email.endsWith("@gmail.com")) {
+    alert("Only Gmail addresses allowed!");
+    return;
+  }
     const teacherData ={ name, email, pass, department, designation, qualification };
 
     if (editIndex !== null) {
@@ -51,7 +53,7 @@ function TotalTeacher() {
       handleEditteacher(editIndex, teacherData);
     } else {
       // Add teacher
-      const success = HandleteacherSignUp(teacherData);
+      const success = HandleTeacherSignUp(teacherData);
       if (!success) {
         alert("teacher with this email already exists!");
         return;
@@ -139,7 +141,8 @@ function TotalTeacher() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" value={email} onChange={(e) => setemail(e.target.value)} />
+              <Form.Control type="email" value={email} onChange={(e) => setemail(e.target.value)} pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+    required />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>

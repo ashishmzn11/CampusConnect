@@ -13,6 +13,10 @@ function StudentSignIn(){
   const handleStudentSignIn=(e)=>{
      e.preventDefault();
      const success=HandleStudentSignIn({email,name,pass})
+     if (!email.endsWith("@gmail.com")) {
+    alert("Only Gmail addresses allowed!");
+    return;
+  }
      if(success){
       setname("");
       setemail("");
@@ -26,9 +30,13 @@ function StudentSignIn(){
   
   
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100" style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)" }}>
+    <div className="d-flex justify-content-center align-items-center vh-100" style={{
+        background: "linear-gradient(to right, rgba(9, 50, 107, 0.9), rgba(37, 170, 252, 0.9))",
+        border: "none",
+        color: "white",
+      }}>
       <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "400px", borderRadius: "15px" }}>
-        <h2 className="text-center mb-4" style={{ color: "#2575fc" }}>Student SignIn</h2>
+        <h2 className="text-center mb-4" style={{ color: "#4978edff" }}>Student SignIn</h2>
         <form onSubmit={handleStudentSignIn}>
           <div className="mb-3">
             <label className="form-label">Full Name</label>
@@ -37,7 +45,8 @@ function StudentSignIn(){
 
           <div className="mb-3">
             <label className="form-label">Email address</label>
-            <input type="email" className="form-control" name="email" value={email} onChange={(e)=>setemail(e.target.value)} placeholder="Enter your email" required />
+            <input type="email" className="form-control" name="email" value={email} onChange={(e)=>setemail(e.target.value)} pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+    required placeholder="Enter your email"  />
           </div>
 
           <div className="mb-3">

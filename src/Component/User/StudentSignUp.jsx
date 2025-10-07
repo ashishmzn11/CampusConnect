@@ -16,6 +16,10 @@ function StudentSignUp() {
 
   const handleStudentSignUp = (e) => {
     e.preventDefault();
+    if (!email.endsWith("@gmail.com")) {
+    alert("Only Gmail addresses allowed!");
+    return;
+  }
     const success = HandleStudentSignUp({ name, email, pass, course, year, batch });
     if (success) {
       setname("");
@@ -72,7 +76,8 @@ function StudentSignUp() {
                 value={email}
                 onChange={(e) => setemail(e.target.value)}
                 placeholder="Enter email"
-                required
+                pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+    required
               />
             </Col>
             <Col md={6}>

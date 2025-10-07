@@ -105,7 +105,7 @@ useEffect(() => {
   }, [totalteacher]);
 
   useEffect(() => {
-    localStorage.setItem("currentStudent", JSON.stringify(currentteacher));
+    localStorage.setItem("currentteacher", JSON.stringify(currentteacher));
   }, [currentteacher]);
 
 
@@ -137,7 +137,7 @@ useEffect(() => {
 
     // if not exists, add the student
     const newteacher = { email, name, pass,department,designation ,qualification};
-    const updatedteacher= [...totalstudent, newteacher];
+    const updatedteacher= [...totalteacher, newteacher];
     settotalteacher( updatedteacher);
     localStorage.setItem("teacher", JSON.stringify(updatedteacher));
     seterror(null); // clear any old error
@@ -150,48 +150,23 @@ useEffect(() => {
   const totalTeacherCount = totalteacher.length;
 
   // remove
-  const handleRemoveteacher = (email) => {
-  const filteredStudents = totalstudent.filter(student => student.email !== email);
-  settotalstudent(filteredStudents);
-  localStorage.setItem("students", JSON.stringify(filteredStudents)); // update localStorage
+const handleRemoveteacher = (email) => {
+  const filteredteacher = totalteacher.filter(teacher => teacher.email !== email);
+  settotalteacher(filteredteacher); // ✅ use settotalteacher
+  localStorage.setItem("teacher", JSON.stringify(filteredteacher));
 };
 // edit
-const handleEditteacher = (index, updatedStudent) => {
-    const updatedList = [...totalstudent];
-    updatedList[index] = updatedStudent;
-    settotalstudent(updatedList);
-  };
-
+const handleEditteacher = (index, updatedteacher) => {
+  const updatedList = [...totalteacher]; // ✅ use totalteacher
+  updatedList[index] = updatedteacher;
+  settotalteacher(updatedList); // ✅ use settotalteacher
+  localStorage.setItem("teacher", JSON.stringify(updatedList));
+};
 // ***********************teacher end*********************
 // *******************************************************
 
-
-
-// const [adminList, setAdminList] = useState(() => {
-//     const storedAdmins = localStorage.getItem("adminList");
-//     return storedAdmins
-//       ? JSON.parse(storedAdmins)
-//       : [{ name: "Ashish", email: "admin@gmail.com", pass: "003" }];
-//   });
-
-//   const [Error, setError] = useState("");
-
-//   const HandleAdminSignIn = ({ email, pass }) => {
-//     const admin = adminList.find((a) => a.email === email && a.pass === pass);
-//     if (admin) {
-//       setError("");
-//       return true;
-//     } else {
-//       setError("Invalid email or password!");
-//       return false;
-//     }
-//   };
-
-//   useEffect(() => {
-//     localStorage.setItem("adminList", JSON.stringify(adminList));
-//   }, [adminList]);
-///////////total student remove
-
+// ***********************Admin*********************
+// *******************************************************
 const HandleAdminSignIn = (email, password) => {
     if (email === "Admin@gmail.com" && password === "003") {
       localStorage.setItem("adminAuth", true);
@@ -200,8 +175,24 @@ const HandleAdminSignIn = (email, password) => {
       return { success: false, message: "Invalid Admin Credentials" };
     }
   };
+  // ***********************course *********************
+// *******************************************************
+const [totalcourse,settotalcourse]=useState(() => {
+    const saved = localStorage.getItem("course");
+    return saved ? JSON.parse(saved) : [];
+  })
+  const HandleCourse=({name,code,duration,totalFee})=>{
+    const newcourse={name,code,duration,totalFee}
+    settotalcourse([...totalcourse,newcourse])
+
+  }
+  useEffect(() => {
+    localStorage.setItem("course", JSON.stringify(totalcourse));
+  }, [totalcourse]);
+// ***********************course end*********************
+// *******************************************************
   return (
-    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher}}>
+    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse}}>
       {children}
     </StudentContext.Provider>
   );

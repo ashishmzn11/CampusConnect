@@ -14,7 +14,10 @@ function AdminSignIn() {
   const handleAdminSignIn = (e) => {
   e.preventDefault();
   const { success, message } = HandleAdminSignIn(email, pass);
-
+if (!email.endsWith("@gmail.com")) {
+    alert("Only Gmail addresses allowed!");
+    return;
+  }
   if (success) {
     navigate("/AdminDashboard");
   } else {
@@ -23,9 +26,9 @@ function AdminSignIn() {
 };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "400px" }}>
-        <h2 className="text-center text-success mb-4">Admin Sign In</h2>
+    <div className="d-flex justify-content-center align-items-center vh-100" style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)" }}>
+      <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "400px", borderRadius: "15px" }}>
+        <h2 className="text-center mb-4" style={{ color: "#2575fc" }}>AdminSign In</h2>
 
         <form onSubmit={handleAdminSignIn}>
           <div className="mb-3">
@@ -48,7 +51,8 @@ function AdminSignIn() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setemail(e.target.value)}
-              required
+              pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+    required
             />
           </div>
 
@@ -66,7 +70,7 @@ function AdminSignIn() {
 
           {error && <div className="alert alert-danger">{error}</div>}
 
-          <button type="submit" className="btn btn-success w-100 mb-3 rounded-pill">
+          <button type="submit" className="btn btn-primary w-100 mb-3 rounded-pill">
             Sign In
           </button>
         </form>

@@ -12,7 +12,11 @@ function TeacherSignIn() {
 
   const handleTeacherSignIn = (e) => {
     e.preventDefault();
-    const success = HandleTeacherSignIn({ email, name, pass });
+    if (!email.endsWith("@gmail.com")) {
+    alert("Only Gmail addresses allowed!");
+    return;
+  }
+    const success = HandleTeacherSignIn({ email,name, pass });
     if (success) {
       setName("");
       setEmail("");
@@ -22,9 +26,9 @@ function TeacherSignIn() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: "linear-gradient(135deg, rgba(106,17,203,0.9), rgba(37,117,252,0.9))" }}>
+    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ background: "linear-gradient(135deg, rgba(63, 106, 118, 0.9), rgba(21, 60, 84, 0.9))" }}>
       <div  className="bg-white rounded-4 shadow-lg p-4 p-md-5" style={{ width: "100%", maxWidth: "600px" }}>
-        <h2 className="text-center text-success mb-4">Teacher Sign In</h2>
+        <h2 className="text-center text-info mb-4">Teacher Sign In</h2>
 
         <form onSubmit={handleTeacherSignIn}>
           <div className="mb-3">
@@ -47,7 +51,8 @@ function TeacherSignIn() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
+              pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+    required
             />
           </div>
 
@@ -65,7 +70,7 @@ function TeacherSignIn() {
 
           {error && <div className="alert alert-danger">{error}</div>}
 
-          <button type="submit" className="btn btn-success w-100 mb-3 rounded-pill">
+          <button type="submit" className="btn btn-info w-100 mb-3 rounded-pill">
             Sign In
           </button>
 

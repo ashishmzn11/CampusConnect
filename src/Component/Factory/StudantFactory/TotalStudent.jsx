@@ -47,7 +47,10 @@ function TotalStudent() {
       alert("Please fill all fields!");
       return;
     }
-
+ if (!email.endsWith("@gmail.com")) {
+    alert("Only Gmail addresses allowed!");
+    return;
+  }
     const studentData = { name, email, pass, course, year, batch };
 
     if (editIndex !== null) {
@@ -148,7 +151,8 @@ function TotalStudent() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" value={email} onChange={(e) => setemail(e.target.value)} />
+              <Form.Control type="email" value={email} onChange={(e) => setemail(e.target.value)} pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+    required/>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>

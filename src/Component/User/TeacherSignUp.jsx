@@ -20,6 +20,10 @@ function TeacherSignUp() {
       setname(""); setemail(""); setpass(""); setdepartment(""); setdesignation(""); setqualification("");
       navigate("/AdminDashboard");
     }
+    if (!email.endsWith("@gmail.com")) {
+    alert("Only Gmail addresses allowed!");
+    return;
+  }
   };
 
   return (
@@ -39,7 +43,8 @@ function TeacherSignUp() {
           <Row className="mb-3">
             <Col md={6} className="mb-3 mb-md-0">
               <label className="form-label fw-semibold">Email</label>
-              <input type="email" className="form-control form-control-lg" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Enter email" required />
+              <input type="email" className="form-control form-control-lg" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Enter email" pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+    required />
             </Col>
             <Col md={6}>
               <label className="form-label fw-semibold">Password</label>
