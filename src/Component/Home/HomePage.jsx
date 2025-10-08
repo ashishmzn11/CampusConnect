@@ -9,7 +9,7 @@ function HomePage() {
     <div className="bg-light" style={{ minHeight: "100vh" }}>
       {/* Hero Section */}
       <Container fluid className="py-5 bg-primary text-white text-center">
-        <h1 className="display-4">Student Management System</h1>
+        <h1 className="display-4">Campus Connection</h1>
         <p className="lead">Welcome! Choose your portal to sign in below</p>
       </Container>
 
@@ -60,7 +60,7 @@ function HomePage() {
 
       {/* Footer */}
       <Container fluid className="bg-dark text-light py-3 text-center">
-        <small>© {new Date().getFullYear()} Student Management System. All Rights Reserved.</small>
+        <small>© {new Date().getFullYear()} Campus Connection. All Rights Reserved.</small>
       </Container>
     </div>
   );

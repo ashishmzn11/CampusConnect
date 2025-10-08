@@ -21,7 +21,7 @@ const subjectsData = [
 const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
 
 function AdminDashboard() {
-  const { totalStudentsCount, totalTeacherCount } = useContext(StudentContext);
+  const { totalStudentsCount, totalTeacherCount,totalcourse } = useContext(StudentContext);
   const navigate = useNavigate();
 
   // Functions for back and logout
@@ -83,8 +83,8 @@ function AdminDashboard() {
           <Card bg="warning" text="white" className="mb-3">
             <Card.Body>
               <Card.Title>Total Courses</Card.Title>
-              <Card.Text>11</Card.Text>
-              <Button variant="light" size="sm">More Info</Button>
+              <Card.Text>{totalcourse.length}</Card.Text>
+              <Button variant="light" size="sm"onClick={()=>navigate("/TotalCourse")}>More Info</Button>
             </Card.Body>
           </Card>
         </Col>

@@ -1,10 +1,25 @@
 import React, { useContext, useState } from "react";
-import { Container, Row, Col, Card, Table, Button, Form, Modal } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Table,
+  Button,
+  Form,
+  Modal,
+} from "react-bootstrap";
 import { StudentContext } from "../../../Store/User/StoreStudent";
 // import { teacherContext } from "../../../Store/User/Storeteacher";
 
 function TotalTeacher() {
-  const { totalteacher, handleRemoveteacher,HandleTeacherSignUp, handleEditteacher, } = useContext(StudentContext);
+  const {
+    totalteacher,
+    handleRemoveteacher,
+    HandleTeacherSignUp,
+    handleEditteacher,
+    
+  } = useContext(StudentContext);
 
   // Form state
   const [name, setname] = useState("");
@@ -20,17 +35,22 @@ function TotalTeacher() {
   // Open modal for Add or Edit
   const openModal = (index = null) => {
     if (index !== null) {
-    const teacher = totalteacher[index];
-    setname(teacher.name);
-    setemail(teacher.email);
-    setpass(teacher.pass);
-    setdepartment(teacher.department);
-    setdesignation(teacher.designation);
-    setqualification(teacher.qualification); // ✅ add this
-    setEditIndex(index); // ✅ add this
-  } else {
+      const teacher = totalteacher[index];
+      setname(teacher.name);
+      setemail(teacher.email);
+      setpass(teacher.pass);
+      setdepartment(teacher.department);
+      setdesignation(teacher.designation);
+      setqualification(teacher.qualification); 
+      setEditIndex(index); 
+    } else {
       // Add mode
-      setname(""); setemail(""); setpass(""); setdepartment(""); setdesignation(""); setqualification("");
+      setname("");
+      setemail("");
+      setpass("");
+      setdepartment("");
+      setdesignation("");
+      setqualification("");
       setEditIndex(null);
     }
     setShowModal(true);
@@ -38,15 +58,29 @@ function TotalTeacher() {
 
   // Save teacher (Add or Edit)
   const handleSaveteacher = () => {
-    if (!name || !email || !pass || !department || !designation || !qualification) {
+    if (
+      !name ||
+      !email ||
+      !pass ||
+      !department ||
+      !designation ||
+      !qualification
+    ) {
       alert("Please fill all fields!");
       return;
     }
- if (!email.endsWith("@gmail.com")) {
-    alert("Only Gmail addresses allowed!");
-    return;
-  }
-    const teacherData ={ name, email, pass, department, designation, qualification };
+    if (!email.endsWith("@gmail.com")) {
+      alert("Only Gmail addresses allowed!");
+      return;
+    }
+    const teacherData = {
+      name,
+      email,
+      pass,
+      department,
+      designation,
+      qualification,
+    };
 
     if (editIndex !== null) {
       // Edit teacher
@@ -62,7 +96,12 @@ function TotalTeacher() {
 
     // Reset and close modal
     setShowModal(false);
-    setname(""); setemail(""); setpass(""); setdepartment(""); setdesignation(""); setqualification("");
+    setname("");
+    setemail("");
+    setpass("");
+    setdepartment("");
+    setdesignation("");
+    setqualification("");
     setEditIndex(null);
   };
 
@@ -131,34 +170,61 @@ function TotalTeacher() {
       {/* Add/Edit teacher Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>{editIndex !== null ? "Edit teacher" : "Add New teacher"}</Modal.Title>
+          <Modal.Title>
+            {editIndex !== null ? "Edit teacher" : "Add New teacher"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>teacher Name</Form.Label>
-              <Form.Control type="text" value={name} onChange={(e) => setname(e.target.value)} />
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setname(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" value={email} onChange={(e) => setemail(e.target.value)} pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
-    required />
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
+                pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+                required
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" value={pass} onChange={(e) => setpass(e.target.value)} />
+              <Form.Control
+                type="password"
+                value={pass}
+                onChange={(e) => setpass(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Department/Subject</Form.Label>
-              <Form.Control type="text" value={department} onChange={(e) => setdepartment(e.target.value)} />
+              <Form.Control
+                type="text"
+                value={department}
+                onChange={(e) => setdepartment(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Designation/Role</Form.Label>
-              <Form.Control type="text" value={designation} onChange={(e) => setdesignation(e.target.value)} />
+              <Form.Control
+                type="text"
+                value={designation}
+                onChange={(e) => setdesignation(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Qualification</Form.Label>
-              <Form.Control type="text" value={qualification} onChange={(e) => setqualification(e.target.value)} />
+              <Form.Control
+                type="text"
+                value={qualification}
+                onChange={(e) => setqualification(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>

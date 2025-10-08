@@ -152,14 +152,14 @@ useEffect(() => {
   // remove
 const handleRemoveteacher = (email) => {
   const filteredteacher = totalteacher.filter(teacher => teacher.email !== email);
-  settotalteacher(filteredteacher); // ✅ use settotalteacher
+  settotalteacher(filteredteacher); 
   localStorage.setItem("teacher", JSON.stringify(filteredteacher));
 };
 // edit
 const handleEditteacher = (index, updatedteacher) => {
-  const updatedList = [...totalteacher]; // ✅ use totalteacher
+  const updatedList = [...totalteacher]; 
   updatedList[index] = updatedteacher;
-  settotalteacher(updatedList); // ✅ use settotalteacher
+  settotalteacher(updatedList); 
   localStorage.setItem("teacher", JSON.stringify(updatedList));
 };
 // ***********************teacher end*********************
@@ -181,18 +181,34 @@ const [totalcourse,settotalcourse]=useState(() => {
     const saved = localStorage.getItem("course");
     return saved ? JSON.parse(saved) : [];
   })
-  const HandleCourse=({name,code,duration,totalFee})=>{
-    const newcourse={name,code,duration,totalFee}
-    settotalcourse([...totalcourse,newcourse])
+ const HandleCourse = ({name, code, duration, totalFee}) => {
+  const newcourse = {name, code, duration, totalFee};
+  settotalcourse([...totalcourse, newcourse]);
+};
 
-  }
   useEffect(() => {
     localStorage.setItem("course", JSON.stringify(totalcourse));
   }, [totalcourse]);
+  // remove
+const handleRemoveCourse = (code) => {
+  const filteredcourse = totalcourse.filter(course => course.code !== code);
+  settotalcourse(filteredcourse);
+  localStorage.setItem("course", JSON.stringify(filteredcourse));
+};
+
+  // edit
+const HandleEditCourse = (index, total) => {
+  const updatedList = [...totalcourse]; 
+  updatedList[index] = total;
+  settotalcourse(updatedList);
+  localStorage.setItem("course", JSON.stringify(updatedList));
+};
+
+
 // ***********************course end*********************
 // *******************************************************
   return (
-    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse}}>
+    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse,HandleEditCourse,handleRemoveCourse,}}>
       {children}
     </StudentContext.Provider>
   );
