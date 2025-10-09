@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StudentContext } from "../../Store/User/StoreStudent";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 function StudentSignUp() {
   const navigate = useNavigate();
@@ -153,6 +153,10 @@ function StudentSignUp() {
             </button>
           </div>
         </form>
+        
+        <Button variant="secondary"className="btn  w-100 mb-3 rounded-pill" onClick={()=>navigate(-1)}>
+                    ⬅ Back
+                  </Button>
       </div>
     </div>
   );

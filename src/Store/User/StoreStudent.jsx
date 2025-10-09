@@ -207,8 +207,41 @@ const HandleEditCourse = (index, total) => {
 
 // ***********************course end*********************
 // *******************************************************
+// ***********************subject add *********************
+// *******************************************************
+const [totalsubject, settotalsubject] = useState(() => {
+  const saved = localStorage.getItem("totalsubject");
+  return saved ? JSON.parse(saved) : {};
+});
+
+const [currentCourse, setCurrentCourse] = useState("");
+
+// Save or update subject
+const HandleSubject = (courseName, subjectData, editIndex = null) => {
+  const currentSubjects = [...(totalsubject[courseName] || [])];
+
+  if (editIndex !== null) {
+    currentSubjects[editIndex] = subjectData; // update
+  } else {
+    currentSubjects.push(subjectData); // add
+  }
+
+  const updatedSubjects = { ...totalsubject, [courseName]: currentSubjects };
+  settotalsubject(updatedSubjects);
+  localStorage.setItem("totalsubject", JSON.stringify(updatedSubjects)); 
+};
+
+// Remove subject
+const HandleSubjectRemove = (courseName, code) => {
+  const updated = totalsubject[courseName].filter((sub) => sub.code !== code);
+  const updatedSubjects = { ...totalsubject, [courseName]: updated };
+  settotalsubject(updatedSubjects);
+  localStorage.setItem("totalsubject", JSON.stringify(updatedSubjects)); }
+
+  // ***********************subject end*********************
+// *******************************************************
   return (
-    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse,HandleEditCourse,handleRemoveCourse,}}>
+    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse,HandleEditCourse,handleRemoveCourse,totalsubject,currentCourse,HandleSubject,HandleSubjectRemove}}>
       {children}
     </StudentContext.Provider>
   );

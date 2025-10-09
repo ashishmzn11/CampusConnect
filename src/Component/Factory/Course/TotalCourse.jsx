@@ -10,8 +10,10 @@ import {
   Modal,
 } from "react-bootstrap";
 import { StudentContext } from "../../../Store/User/StoreStudent";
+import { useNavigate } from "react-router-dom";
 
 function TotalCourse() {
+const  navigate=useNavigate();
   const {
     HandleCourse,
     totalcourse,
@@ -76,6 +78,13 @@ function TotalCourse() {
           <h3>Total Courses</h3>
         </Col>
         <Col className="text-end">
+        <Button
+                    variant="secondary"
+                    className="me-2 rounded-pill"
+                    onClick={()=>navigate(-1)}
+                  >
+                    ⬅ Back
+                  </Button>
           <Button variant="primary" onClick={() => openModal()}>
             + Add Course
           </Button>

@@ -83,6 +83,13 @@ function TotalStudent() {
           <h3>Total Students</h3>
         </Col>
         <Col className="text-end">
+        <Button
+                    variant="secondary"
+                    className="me-2 rounded-pill"
+                    onClick={()=>navigate(-1)}
+                  >
+                    ⬅ Back
+                  </Button>
           <Button variant="primary" onClick={() => openModal()}>
             + Add Student
           </Button>

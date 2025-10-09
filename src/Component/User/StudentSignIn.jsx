@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 // import { UserContext } from "../../Store/User/Student";
 import { useNavigate } from "react-router-dom";
 import { StudentContext} from "../../Store/User/StoreStudent";
+import { Button } from "react-bootstrap";
 
 function StudentSignIn(){
   const navigate=useNavigate();
@@ -66,6 +67,9 @@ function StudentSignIn(){
             Already have't an account? <a href="#" style={{ color: "#2575fc", fontWeight: "500" }} onClick={()=>navigate("/StudentSignUp")}>SignUp</a>
           </p>
         </form>
+        <Button variant="secondary"className="btn  w-100 mb-3 rounded-pill" onClick={()=>navigate(-1)}>
+            ⬅ Back
+          </Button>
       </div>
     </div>
   );

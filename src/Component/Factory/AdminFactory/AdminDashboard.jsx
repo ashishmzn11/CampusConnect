@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Container, Row, Col, Card, Button, Dropdown } from "react-bootstrap";
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recharts";
 import { StudentContext } from "../../../Store/User/StoreStudent";
-import { useNavigate } from "react-router-dom"; // for navigation
+import { useNavigate } from "react-router-dom";
 
 const studentStaffData = [
   { name: "Students", value: 15 },
@@ -21,37 +21,51 @@ const subjectsData = [
 const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
 
 function AdminDashboard() {
-  const { totalStudentsCount, totalTeacherCount,totalcourse } = useContext(StudentContext);
+  const { totalStudentsCount, totalTeacherCount, totalcourse,totalsubject } = useContext(StudentContext);
   const navigate = useNavigate();
 
-  // Functions for back and logout
+
+ const totalSubjectsCount = Object.values(totalsubject || {}).reduce(
+  (sum, subjectsArray) => sum + subjectsArray.length,
+  0
+);
+
+const subjectsChartData = Object.keys(totalsubject || {}).map((courseName) => ({
+  name: courseName,
+  value: totalsubject[courseName].length
+}));
+
+
   const handleBack = () => {
-    navigate(-1); // go back one page
+    navigate(-1);
   };
 
   const handleLogout = () => {
-    // example logout (clear any auth)
     localStorage.removeItem("currentAdmin");
-    navigate("/"); // redirect to homepage or login
+    navigate("/");
   };
 
   return (
     <Container fluid className="p-3 bg-light" style={{ minHeight: "100vh" }}>
       {/* Header */}
       <Row className="mb-3 align-items-center">
-        <Col md={2}>
-          {/* Dropdown menu */}
+        <Col md={2} className="d-flex align-items-center gap-2">
+          {/* Back Button */}
+          <Button variant="secondary" onClick={handleBack}>
+            ⬅ Back
+          </Button>
+
+          {/* Dropdown Menu */}
           <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+            <Dropdown.Toggle variant="dark" id="dropdown-basic">
               Menu
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
-              <Dropdown.Item onClick={handleBack}>⬅ Back</Dropdown.Item>
               <Dropdown.Item onClick={handleLogout}>🚪 Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
+
         <Col md={10}>
           <h3 className="mb-0 text-center">
             Student Management System | Admin Dashboard
@@ -66,7 +80,9 @@ function AdminDashboard() {
             <Card.Body>
               <Card.Title>Total Students</Card.Title>
               <Card.Text>{totalStudentsCount}</Card.Text>
-              <Button variant="light" size="sm"onClick={()=>navigate("/TotalStudent")}>More Info</Button>
+              <Button variant="light" size="sm" onClick={() => navigate("/TotalStudent")}>
+                More Info
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -75,7 +91,9 @@ function AdminDashboard() {
             <Card.Body>
               <Card.Title>Total Staffs</Card.Title>
               <Card.Text>{totalTeacherCount}</Card.Text>
-              <Button variant="light" size="sm"onClick={()=>navigate("/TotalTeacher")}>More Info</Button>
+              <Button variant="light" size="sm" onClick={() => navigate("/TotalTeacher")}>
+                More Info
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -84,7 +102,9 @@ function AdminDashboard() {
             <Card.Body>
               <Card.Title>Total Courses</Card.Title>
               <Card.Text>{totalcourse.length}</Card.Text>
-              <Button variant="light" size="sm"onClick={()=>navigate("/TotalCourse")}>More Info</Button>
+              <Button variant="light" size="sm" onClick={() => navigate("/TotalCourse")}>
+                More Info
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -92,8 +112,8 @@ function AdminDashboard() {
           <Card bg="success" text="white" className="mb-3">
             <Card.Body>
               <Card.Title>Total Subjects</Card.Title>
-              <Card.Text>18</Card.Text>
-              <Button variant="light" size="sm">More Info</Button>
+              <Card.Text>{totalSubjectsCount}</Card.Text>
+              <Button variant="light" size="sm" onClick={() => navigate("/TotalSubject")}>More Info</Button>
             </Card.Body>
           </Card>
         </Col>

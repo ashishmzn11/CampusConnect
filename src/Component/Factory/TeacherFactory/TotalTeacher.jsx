@@ -9,19 +9,18 @@ import {
   Form,
   Modal,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { StudentContext } from "../../../Store/User/StoreStudent";
-// import { teacherContext } from "../../../Store/User/Storeteacher";
 
 function TotalTeacher() {
+  const navigate = useNavigate();
   const {
     totalteacher,
     handleRemoveteacher,
     HandleTeacherSignUp,
     handleEditteacher,
-    
   } = useContext(StudentContext);
 
-  // Form state
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
@@ -30,9 +29,8 @@ function TotalTeacher() {
   const [qualification, setqualification] = useState("");
 
   const [showModal, setShowModal] = useState(false);
-  const [editIndex, setEditIndex] = useState(null); // null = add, number = edit
+  const [editIndex, setEditIndex] = useState(null);
 
-  // Open modal for Add or Edit
   const openModal = (index = null) => {
     if (index !== null) {
       const teacher = totalteacher[index];
@@ -41,10 +39,9 @@ function TotalTeacher() {
       setpass(teacher.pass);
       setdepartment(teacher.department);
       setdesignation(teacher.designation);
-      setqualification(teacher.qualification); 
-      setEditIndex(index); 
+      setqualification(teacher.qualification);
+      setEditIndex(index);
     } else {
-      // Add mode
       setname("");
       setemail("");
       setpass("");
@@ -56,16 +53,8 @@ function TotalTeacher() {
     setShowModal(true);
   };
 
-  // Save teacher (Add or Edit)
   const handleSaveteacher = () => {
-    if (
-      !name ||
-      !email ||
-      !pass ||
-      !department ||
-      !designation ||
-      !qualification
-    ) {
+    if (!name || !email || !pass || !department || !designation || !qualification) {
       alert("Please fill all fields!");
       return;
     }
@@ -73,28 +62,18 @@ function TotalTeacher() {
       alert("Only Gmail addresses allowed!");
       return;
     }
-    const teacherData = {
-      name,
-      email,
-      pass,
-      department,
-      designation,
-      qualification,
-    };
+    const teacherData = { name, email, pass, department, designation, qualification };
 
     if (editIndex !== null) {
-      // Edit teacher
       handleEditteacher(editIndex, teacherData);
     } else {
-      // Add teacher
       const success = HandleTeacherSignUp(teacherData);
       if (!success) {
-        alert("teacher with this email already exists!");
+        alert("Teacher with this email already exists!");
         return;
       }
     }
 
-    // Reset and close modal
     setShowModal(false);
     setname("");
     setemail("");
@@ -105,6 +84,7 @@ function TotalTeacher() {
     setEditIndex(null);
   };
 
+
   return (
     <Container fluid className="py-4 bg-light" style={{ minHeight: "100vh" }}>
       <Row className="mb-3">
@@ -112,7 +92,21 @@ function TotalTeacher() {
           <h3>Total Teacher</h3>
         </Col>
         <Col className="text-end">
-          <Button variant="primary" onClick={() => openModal()}>
+          {/* Back button */}
+          <Button
+            variant="secondary"
+            className="me-2 rounded-pill"
+            onClick={()=>navigate(-1)}
+          >
+            ⬅ Back
+          </Button>
+
+          {/* Add Teacher button */}
+          <Button
+            variant="primary"
+            className="rounded-pill"
+            onClick={() => openModal()}
+          >
             + Add Teacher
           </Button>
         </Col>
@@ -127,9 +121,9 @@ function TotalTeacher() {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Password</th>
-                <th>department/Subject</th>
-                <th>designation/Role</th>
-                <th>qualification</th>
+                <th>Department/Subject</th>
+                <th>Designation/Role</th>
+                <th>Qualification</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -167,17 +161,17 @@ function TotalTeacher() {
         </Card.Body>
       </Card>
 
-      {/* Add/Edit teacher Modal */}
+      {/* Add/Edit Teacher Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {editIndex !== null ? "Edit teacher" : "Add New teacher"}
+            {editIndex !== null ? "Edit Teacher" : "Add New Teacher"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label>teacher Name</Form.Label>
+              <Form.Label>Teacher Name</Form.Label>
               <Form.Control
                 type="text"
                 value={name}
@@ -233,7 +227,7 @@ function TotalTeacher() {
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSaveteacher}>
-            {editIndex !== null ? "Update teacher" : "Add teacher"}
+            {editIndex !== null ? "Update Teacher" : "Add Teacher"}
           </Button>
         </Modal.Footer>
       </Modal>

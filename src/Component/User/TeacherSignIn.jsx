@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StudentContext } from "../../Store/User/StoreStudent";
+import { Button } from "react-bootstrap";
 // import { TeacherContext } from "../../Store/User/StoreTeacher"; // Assume TeacherContext exists
 
 function TeacherSignIn() {
@@ -85,6 +86,9 @@ function TeacherSignIn() {
             </button>
           </div>
         </form>
+         <Button variant="secondary"className="btn  w-100 mb-3 rounded-pill" onClick={()=>navigate(-1)}>
+            ⬅ Back
+          </Button>
       </div>
     </div>
   );
