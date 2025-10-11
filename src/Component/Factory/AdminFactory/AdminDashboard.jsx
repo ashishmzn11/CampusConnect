@@ -4,24 +4,14 @@ import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recha
 import { StudentContext } from "../../../Store/User/StoreStudent";
 import { useNavigate } from "react-router-dom";
 
-const studentStaffData = [
-  { name: "Students", value: 15 },
-  { name: "Staffs", value: 22 }
-];
 
-const subjectsData = [
-  { name: "B.Tech", value: 5 },
-  { name: "BCA", value: 4 },
-  { name: "BDS", value: 2 },
-  { name: "BPharma", value: 3 },
-  { name: "B.Sc", value: 3 },
-  { name: "Diploma", value: 2 }
-];
 
-const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
+
+
+const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40","#4066ffff"];
 
 function AdminDashboard() {
-  const { totalStudentsCount, totalTeacherCount, totalcourse,totalsubject } = useContext(StudentContext);
+  const { totalStudentsCount, totalTeacherCount, totalcourse,totalsubject,studentStaffData,subjectsData } = useContext(StudentContext);
   const navigate = useNavigate();
 
 
@@ -30,10 +20,7 @@ function AdminDashboard() {
   0
 );
 
-const subjectsChartData = Object.keys(totalsubject || {}).map((courseName) => ({
-  name: courseName,
-  value: totalsubject[courseName].length
-}));
+
 
 
   const handleBack = () => {

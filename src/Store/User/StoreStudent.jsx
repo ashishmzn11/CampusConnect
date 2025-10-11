@@ -240,8 +240,23 @@ const HandleSubjectRemove = (courseName, code) => {
 
   // ***********************subject end*********************
 // *******************************************************
+// ***********************data ko map ne send karna start*********************
+// ***************************************************************************
+const studentStaffData = [
+  { name: "Students", value: totalstudent.length },
+  { name: "Staffs", value: totalteacher.length}
+];
+
+const subjectsData = Object.keys(totalsubject || {}).map((courseName) => ({
+  name: courseName,
+  value: totalsubject[courseName]?.length || 0
+}));
+
+
+// ***********************data ko map ne send karna end*********************
+// *******************************************************
   return (
-    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse,HandleEditCourse,handleRemoveCourse,totalsubject,currentCourse,HandleSubject,HandleSubjectRemove}}>
+    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse,HandleEditCourse,handleRemoveCourse,totalsubject,currentCourse,HandleSubject,HandleSubjectRemove,studentStaffData,subjectsData}}>
       {children}
     </StudentContext.Provider>
   );
