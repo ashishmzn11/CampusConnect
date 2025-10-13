@@ -38,7 +38,7 @@ useEffect(() => {
 
    }
   
- const HandleStudentSignUp = ({ name, email, pass, course, year, batch}) => {
+ const HandleStudentSignUp = ({ name, email, pass, course, year, batch,submitfee}) => {
     // check if this email already exists
     const alreadyExistStudent = totalstudent.some(
       (student) => student.email === email
@@ -57,7 +57,7 @@ useEffect(() => {
     // return true;
 
 
-    const newStudent = { name, email, pass, course, year, batch };
+    const newStudent = { name, email, pass, course, year, batch,submitfee };
     const updatedStudents = [...totalstudent, newStudent];
     settotalstudent(updatedStudents); // updates state
     localStorage.setItem("students", JSON.stringify(updatedStudents)); // updates storage

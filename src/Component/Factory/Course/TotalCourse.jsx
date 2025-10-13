@@ -102,7 +102,7 @@ const  navigate=useNavigate();
                 <th>Duration (Years)</th>
                 <th>Total Fee</th>
                 <th>Students Enrolled</th>
-                <th>Total Fees Paid</th>
+              
                 <th>Action</th>
               </tr>
             </thead>
@@ -127,7 +127,6 @@ const  navigate=useNavigate();
                     <td>{course.duration}</td>
                     <td>{course.totalFee}</td>
                     <td>{studentsInThisCourse.length}</td>
-                    <td>{totalFeesPaid}</td>
                     <td>
                       <Button
                         size="sm"
@@ -171,7 +170,7 @@ const  navigate=useNavigate();
               <Form.Label>Course Name*</Form.Label>
               <Form.Control
                 value={name}
-                onChange={(e) => setname(e.target.value)}
+                onChange={(e) => setname(e.target.value.toUpperCase())}
               />
             </Form.Group>
             <Form.Group className="mb-2">
