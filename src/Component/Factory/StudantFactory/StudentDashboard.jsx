@@ -28,7 +28,7 @@ const StudentDashboard = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link text-white">
+            <a href="#" className="nav-link text-white"onClick={() => navigate("/StudentAttendance")}>
               View Attendance
             </a>
           </li>

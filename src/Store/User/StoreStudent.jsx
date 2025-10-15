@@ -219,6 +219,7 @@ const [currentCourse, setCurrentCourse] = useState("");
 // Save or update subject
 const HandleSubject = (courseName, subjectData, editIndex = null) => {
   const currentSubjects = [...(totalsubject[courseName] || [])];
+  
 
   if (editIndex !== null) {
     currentSubjects[editIndex] = subjectData; // update
@@ -238,6 +239,11 @@ const HandleSubjectRemove = (courseName, code) => {
   settotalsubject(updatedSubjects);
   localStorage.setItem("totalsubject", JSON.stringify(updatedSubjects)); }
 
+useEffect(() => {
+  localStorage.setItem("totalsubject", JSON.stringify(totalsubject));
+}, [totalsubject]);
+
+
   // ***********************subject end*********************
 // *******************************************************
 // ***********************data ko map ne send karna start*********************
@@ -246,17 +252,20 @@ const studentStaffData = [
   { name: "Students", value: totalstudent.length },
   { name: "Staffs", value: totalteacher.length}
 ];
-
-const subjectsData = Object.keys(totalsubject || {}).map((courseName) => ({
+const totalSubjectsCount = Object.values(totalsubject || {}).reduce(
+  (sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0),
+  0
+);
+const subjectsData = Object.entries(totalsubject || {}).map(([courseName, subjects]) => ({
   name: courseName,
-  value: totalsubject[courseName]?.length || 0
+  value: subjects.length,
 }));
 
 
 // ***********************data ko map ne send karna end*********************
 // *******************************************************
   return (
-    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse,HandleEditCourse,handleRemoveCourse,totalsubject,currentCourse,HandleSubject,HandleSubjectRemove,studentStaffData,subjectsData}}>
+    <StudentContext.Provider value={{ HandleStudentSignUp ,error,HandleStudentSignIn,currentstudent,HandleStudentLogout,HandleTeacherSignUp,HandleTeacherSignIn,currentteacher,HandleTeacherLogout,HandleAdminSignIn,totalTeacherCount,totalStudentsCount,totalstudent,handleRemoveStudent,handleEditStudent,totalteacher,handleRemoveteacher,handleEditteacher,HandleCourse,totalcourse,HandleEditCourse,handleRemoveCourse,totalsubject,currentCourse,HandleSubject,HandleSubjectRemove,studentStaffData,subjectsData,totalSubjectsCount}}>
       {children}
     </StudentContext.Provider>
   );

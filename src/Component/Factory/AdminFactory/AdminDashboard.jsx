@@ -4,24 +4,21 @@ import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recha
 import { StudentContext } from "../../../Store/User/StoreStudent";
 import { useNavigate } from "react-router-dom";
 
-
-
-
-
 const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40","#4066ffff"];
 
 function AdminDashboard() {
-  const { totalStudentsCount, totalTeacherCount, totalcourse,totalsubject,studentStaffData,subjectsData } = useContext(StudentContext);
+  const { 
+    totalStudentsCount, 
+    totalTeacherCount, 
+    totalcourse,
+    totalsubject,
+    totalSubjectsCount,
+    studentStaffData,
+    subjectsData,
+    attendance
+  } = useContext(StudentContext);
+  
   const navigate = useNavigate();
-
-
- const totalSubjectsCount = Object.values(totalsubject || {}).reduce(
-  (sum, subjectsArray) => sum + subjectsArray.length,
-  0
-);
-
-
-
 
   const handleBack = () => {
     navigate(-1);
@@ -32,27 +29,31 @@ function AdminDashboard() {
     navigate("/");
   };
 
+  // Calculate total attendance %
+  const totalAttendancePercent = (() => {
+    let totalDays = 0;
+    let presentDays = 0;
+    Object.values(attendance || {}).forEach((att) => {
+      totalDays++;
+      if (att) presentDays++;
+    });
+    return totalDays ? Math.round((presentDays / totalDays) * 100) + "%" : "0%";
+  })();
+
   return (
     <Container fluid className="p-3 bg-light" style={{ minHeight: "100vh" }}>
+      
       {/* Header */}
       <Row className="mb-3 align-items-center">
         <Col md={2} className="d-flex align-items-center gap-2">
-          {/* Back Button */}
-          <Button variant="secondary" onClick={handleBack}>
-            ⬅ Back
-          </Button>
-
-          {/* Dropdown Menu */}
+          <Button variant="secondary" onClick={handleBack}>⬅ Back</Button>
           <Dropdown>
-            <Dropdown.Toggle variant="dark" id="dropdown-basic">
-              Menu
-            </Dropdown.Toggle>
+            <Dropdown.Toggle variant="dark" id="dropdown-basic">Menu</Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={handleLogout}>🚪 Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
-
         <Col md={10}>
           <h3 className="mb-0 text-center">
             Student Management System | Admin Dashboard
@@ -73,6 +74,7 @@ function AdminDashboard() {
             </Card.Body>
           </Card>
         </Col>
+
         <Col md={3}>
           <Card bg="danger" text="white" className="mb-3">
             <Card.Body>
@@ -84,6 +86,7 @@ function AdminDashboard() {
             </Card.Body>
           </Card>
         </Col>
+
         <Col md={3}>
           <Card bg="warning" text="white" className="mb-3">
             <Card.Body>
@@ -95,12 +98,55 @@ function AdminDashboard() {
             </Card.Body>
           </Card>
         </Col>
+
+        {/* Existing Subjects Card stays unchanged */}
         <Col md={3}>
           <Card bg="success" text="white" className="mb-3">
             <Card.Body>
               <Card.Title>Total Subjects</Card.Title>
               <Card.Text>{totalSubjectsCount}</Card.Text>
-              <Button variant="light" size="sm" onClick={() => navigate("/TotalSubject")}>More Info</Button>
+              <Button variant="light" size="sm" onClick={() => navigate("/TotalSubject")}>
+                More Info
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* New Cards: Attendance, Query, Result */}
+      <Row className="mb-3">
+        <Col md={3}>
+          <Card bg="primary" text="white" className="mb-3">
+            <Card.Body>
+              <Card.Title>Attendance</Card.Title>
+              <Card.Text>{totalAttendancePercent}</Card.Text>
+              <Button variant="light" size="sm" onClick={() => navigate("/AttendenceTeacherStudent")}>
+                More Info
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={3}>
+          <Card bg="secondary" text="white" className="mb-3">
+            <Card.Body>
+              <Card.Title>Query</Card.Title>
+              <Card.Text>Search / Filter Student Attendance</Card.Text>
+              <Button variant="light" size="sm" onClick={() => navigate("/AttendanceQuery")}>
+                Open Query
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col md={3}>
+          <Card bg="dark" text="white" className="mb-3">
+            <Card.Body>
+              <Card.Title>Result</Card.Title>
+              <Card.Text>View Attendance Summary</Card.Text>
+              <Button variant="light" size="sm" onClick={() => navigate("/AttendanceResult")}>
+                View Result
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -164,6 +210,7 @@ function AdminDashboard() {
           </Card>
         </Col>
       </Row>
+
     </Container>
   );
 }

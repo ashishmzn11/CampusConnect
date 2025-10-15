@@ -1,10 +1,9 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-// import TeacherSignIn from "../User/TeacherSignIn";
 
 function HomePage() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="bg-light" style={{ minHeight: "100vh" }}>
       {/* Hero Section */}
@@ -16,41 +15,75 @@ function HomePage() {
       {/* Sign-In Options */}
       <Container className="py-5">
         <Row className="justify-content-center">
-          <Col md={4}>
+          <Col md={3}>
             <Card className="shadow-sm mb-4 text-center">
               <Card.Body>
                 <Card.Title className="mb-3">Admin Login</Card.Title>
                 <Card.Text>
                   Access the admin dashboard to manage students, staff and courses.
                 </Card.Text>
-                <Button variant="primary" size="lg" onClick={()=>navigate("/AdminSignIn")}block>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={() => navigate("/AdminSignIn")}
+                  block
+                >
                   Sign In as Admin
                 </Button>
               </Card.Body>
             </Card>
           </Col>
-          <Col md={4}>
+          <Col md={3}>
             <Card className="shadow-sm mb-4 text-center">
               <Card.Body>
                 <Card.Title className="mb-3">Student Login</Card.Title>
                 <Card.Text>
                   View your profile, courses, and academic information.
                 </Card.Text>
-                <Button variant="success" size="lg" onClick={()=>navigate("/StudentSignIn")} block>
+                <Button
+                  variant="success"
+                  size="lg"
+                  onClick={() => navigate("/StudentSignIn")}
+                  block
+                >
                   Sign In as Student
                 </Button>
               </Card.Body>
             </Card>
           </Col>
-          <Col md={4}>
+          <Col md={3}>
             <Card className="shadow-sm mb-4 text-center">
               <Card.Body>
                 <Card.Title className="mb-3">Teacher Login</Card.Title>
                 <Card.Text>
                   Manage your classes, students, and performance records.
                 </Card.Text>
-                <Button variant="info" size="lg" onClick={()=>navigate("/TeacherSignIn")}block>
+                <Button
+                  variant="info"
+                  size="lg"
+                  onClick={() => navigate("/TeacherSignIn")}
+                  block
+                >
                   Sign In as Teacher
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+          {/* New Attendance Card */}
+          <Col md={3}>
+            <Card className="shadow-sm mb-4 text-center">
+              <Card.Body>
+                <Card.Title className="mb-3">Attendance</Card.Title>
+                <Card.Text>
+                  View and manage attendance for students and teachers.
+                </Card.Text>
+                <Button
+                  variant="warning"
+                  size="lg"
+                  onClick={() => navigate("/AttendanceSignin")}
+                  block
+                >
+                  Open Attendance
                 </Button>
               </Card.Body>
             </Card>

@@ -158,7 +158,6 @@ const  navigate=useNavigate();
           </Table>
         </Card.Body>
       </Card>
-
       {/* Add/Edit Course Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>

@@ -13,6 +13,12 @@ import TotalStudent from "./Component/Factory/StudantFactory/TotalStudent";
 import TotalTeacher from "./Component/Factory/TeacherFactory/TotalTeacher";
 import TotalSubject from "./Component/Factory/Subject/TotalSubject";
 import TotalCourse from "./Component/Factory/Course/TotalCourse";
+import AttendenceTeacherStudent from "./Component/Factory/AdminFactory/AttendenceTecherStudent";
+import AttendanceSignin from "./Component/Attendance/AttendanceSignin";
+import UserAttendancepage from "./Component/Attendance/UserAttendancepage";
+import StudentAttendance from "./Component/Factory/StudantFactory/StudentAttendance";
+// import Attendance from "./Component/Attendance/AttendanceSignin";
+
 // import StudentDashboard from "./Component/Factory/StudentFactory/StudentDashboard.jsx"; // exact path
 
 function App() {
@@ -32,7 +38,10 @@ function App() {
        <Route path="/TotalTeacher" element={<TotalTeacher/>}/>
        <Route path="/TotalSubject" element={<TotalSubject/>}/>
        <Route path="/TotalCourse" element={<TotalCourse/>}/>
-      
+      <Route path="/AttendenceTeacherStudent" element={<AttendenceTeacherStudent/>}/>
+      <Route path="/AttendanceSignin" element={<AttendanceSignin/>}/>UserAttendancepage
+      <Route path="/UserAttendancepage" element={<UserAttendancepage/>}/>
+      <Route path="/StudentAttendance" element={<StudentAttendance/>}/>
     </Routes>
   );
 }
