@@ -22,7 +22,7 @@ export function AttendanceProvider({ children }) {
     const hours = now.getHours();
     let session = null;
     if (hours >= 10 && hours < 11) session = "Morning";
-    else if (hours >= 15 && hours < 16) session = "Evening";
+    else if (hours >= 12 && hours < 16) session = "Evening";
 
     if (!session) {
       setErrorMsg(
@@ -60,7 +60,7 @@ export function AttendanceProvider({ children }) {
     localStorage.setItem("attendance", JSON.stringify(updatedList));
 
     setSuccessMsg(
-      `✅ ${session} Attendance marked successfully for ${user.name} on ${day}, ${date} at ${time}.`
+      `${session} Attendance marked successfully for ${user.name} on ${day}, ${date} at ${time}.`
     );
     setErrorMsg("");
   };
